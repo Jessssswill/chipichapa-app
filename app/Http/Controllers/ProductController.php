@@ -10,7 +10,8 @@ class ProductController extends Controller
     // show daftar barang di Dashboard Admin
     public function index() {
         $products = Product::all();
-        return view('admin.dashboard', compact('products'));
+        $invoices = \App\Models\Invoice::with(['user', 'product'])->get();
+        return view('admin.dashboard', compact('products', 'invoices'));
     }
 
     //buat show form tambah barang
@@ -71,7 +72,7 @@ class ProductController extends Controller
 
         return redirect('/admin/dashboard')->with('success', 'Barang berhasil diubah!');
     }
-    
+
     public function katalog() {
         $products = Product::all(); 
         return view('katalog', compact('products'));
