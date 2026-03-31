@@ -58,8 +58,7 @@ class ProductController extends Controller
     //buat proses update barang
     public function update(Request $request, $id) {
         $product = Product::find($id);
-        
-        $product->nama_produk = $request->nama_produk;
+        $product->nama_barang = $request->nama_barang;
         $product->harga = $request->harga;
         $product->stok = $request->stok;
 
