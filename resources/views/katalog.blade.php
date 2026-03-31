@@ -40,9 +40,13 @@
             <p style="color: #28a745; font-weight: bold; font-size: 18px;">Rp {{ number_format($p->harga, 0, ',', '.') }}</p>
             <p style="color: gray; font-size: 14px;">Stok Tersedia: {{ $p->stok }}</p>
             
-            <button style="background: #007bff; color: white; padding: 10px; width: 100%; border: none; border-radius: 5px; cursor: pointer;">
-                + Masukkan Keranjang
-            </button>
+            <form action="/beli/{{ $p->id }}" method="POST">
+                @csrf
+                <input type="number" name="jumlah" value="1" min="1" max="{{ $p->stok }}" required style="width: 50px; margin-bottom: 10px; padding: 5px;">
+                <button type="submit" style="background: #007bff; color: white; padding: 10px; width: 100%; border: none; border-radius: 5px; cursor: pointer;">
+                    Beli Sekarang
+                </button>
+            </form>
         </div>
         @endforeach
     </div>
