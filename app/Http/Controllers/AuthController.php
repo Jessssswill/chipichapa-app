@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Admin;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,18 +25,18 @@ class AuthController extends Controller
         $request->validate([
             'name' => 'required|min:3|max:40',
             'email' => ['required', 'email', 'regex:/^[a-zA-Z0-9._%+-]+@gmail\.com$/'],
-            'nomor_hp' => ['required', 'starts_with:08'],
+            'nomor_handphone' => ['required', 'starts_with:08'],
             'password' => 'required|min:6|max:12'
         ]);
         
         //validasi register
-    User::create([
-        'name' => $request->name,
-        'email' => $request->email,
-        'nomor_hp' => $request->nomor_hp,
-        'password' => Hash::make($request->password)
-    ]);
-    return redirect()->route('login')->with('success', 'Registrasi berhasil! Silakan login.');
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'nomor_handphone' => $request->nomor_hp,
+            'password' => Hash::make($request->password)
+        ]);
+        return redirect()->route('login')->with('success', 'Registrasi berhasil! Silakan login.');
     }
 
     //proses login
