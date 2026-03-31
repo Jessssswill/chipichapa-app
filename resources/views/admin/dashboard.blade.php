@@ -43,6 +43,30 @@
         </tr>
         @endforeach
     </table>
-
+    
+    <br><hr><br>
+    
+    <h2>Riwayat Transaksi Masuk</h2>
+    <table border="1" cellpadding="10" cellspacing="0" width="100%">
+        <tr style="background: #d4edda;">
+            <th>No. Struk</th>
+            <th>Tanggal</th>
+            <th>Nama Pembeli</th>
+            <th>Barang dibeli</th>
+            <th>Jumlah</th>
+            <th>Total Pendapatan</th>
+        </tr>
+        
+        @foreach($invoices as $i)
+        <tr>
+            <td>#INV-00{{ $i->id }}</td>
+            <td>{{ $i->created_at->format('d/m/Y H:i') }}</td>
+            <td>{{ $i->user->name }}</td> 
+            <td>{{ $i->product->nama_barang }}</td>
+            <td>{{ $i->jumlah }} pcs</td>
+            <td style="color: green; font-weight: bold;">Rp {{ number_format($i->total_harga, 0, ',', '.') }}</td>
+        </tr>
+        @endforeach
+    </table>
 </body>
 </html>
