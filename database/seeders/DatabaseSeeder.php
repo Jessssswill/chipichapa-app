@@ -8,9 +8,11 @@ class DatabaseSeeder extends Seeder
 {
     public function run()
     {
+        // urutan seeder penting! kategori dulu baru yang lain
         $this->call([
-            AdminSeeder::class,
             CategorySeeder::class,
+            AdminSeeder::class,
+            UserSeeder::class,
         ]);
     }
 }

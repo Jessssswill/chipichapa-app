@@ -7,12 +7,24 @@ use App\Http\Controllers\TransactionController;
 
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::get('/register', [AuthController::class, 'register'])->name('register');
-Route::get('/', [ProductController::class, 'katalog']);
-
 Route::post('/login', [AuthController::class, 'loginProcess']);
 Route::post('/register', [AuthController::class, 'registerProcess']);
-Route::post('/logout', [AuthController::class, 'logout']);
-Route::post('/beli/{id}', [TransactionController::class, 'beli']);
+
+Route::get('/', [ProductController::class, 'katalog'])->name('katalog');
+
+Route::middleware(['auth'])->group(function () {
+    // logout
+    Route::post('/logout', [AuthController::class, 'logout']);
+
+    // keranjang belanja
+    Route::post('/keranjang/tambah/{id}', [TransactionController::class, 'tambahKeKeranjang']);
+    Route::get('/keranjang', [TransactionController::class, 'lihatKeranjang'])->name('keranjang');
+    Route::post('/keranjang/update/{id}', [TransactionController::class, 'updateKeranjang']);
+    Route::post('/keranjang/hapus/{id}', [TransactionController::class, 'hapusDariKeranjang']);
+
+    // checkout / bikin faktur
+    Route::post('/checkout', [TransactionController::class, 'checkout']);
+});
 
 Route::middleware(['tolak.user'])->group(function () {
     Route::get('/admin/dashboard', [ProductController::class, 'index'])->name('admin.dashboard');
@@ -21,4 +33,4 @@ Route::middleware(['tolak.user'])->group(function () {
     Route::post('/admin/hapus/{id}', [ProductController::class, 'destroy']);
     Route::get('/admin/edit/{id}', [ProductController::class, 'edit']);
     Route::post('/admin/edit/{id}', [ProductController::class, 'update']);
-    });
+});

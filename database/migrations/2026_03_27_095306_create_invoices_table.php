@@ -13,12 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
+        // tabel invoices buat nyimpen data faktur pembelian
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
+            $table->string('nomor_invoice')->unique(); // nomor invoice otomatis
             $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('product_id')->constrained('products');
-            $table->integer('jumlah');
-            $table->integer('total_harga');
+            $table->string('alamat_pengiriman'); // alamat pengiriman pembeli
+            $table->string('kode_pos'); // kode pos 5 digit
+            $table->integer('total_harga'); // total semua barang
             $table->timestamps();
         });
     }

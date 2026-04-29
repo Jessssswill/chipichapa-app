@@ -13,13 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
+        // tabel products buat nyimpen semua data barang
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
             $table->string('nama_barang');
-            $table->integer('harga_barang');
-            $table->integer('jumlah_barang');
-            $table->string('foto_barang');
+            $table->integer('harga'); // harga dalam rupiah
+            $table->integer('stok'); // jumlah stok barang
+            $table->string('foto')->nullable(); // path foto barang
             $table->timestamps();
         });
     }

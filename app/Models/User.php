@@ -20,6 +20,8 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'nomor_hp',
+        'role',
         'password',
     ];
 
@@ -41,4 +43,22 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // cek apakah user ini admin atau bukan
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
+    }
+
+    // relasi ke cart items (keranjang belanja)
+    public function cartItems()
+    {
+        return $this->hasMany(CartItem::class);
+    }
+
+    // relasi ke invoices (riwayat pembelian)
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class);
+    }
 }

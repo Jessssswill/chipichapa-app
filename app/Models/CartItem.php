@@ -5,20 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Invoice extends Model
+class CartItem extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
 
-    // relasi ke user (siapa yang beli)
+    // relasi ke user (punya siapa keranjangnya)
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    // relasi ke invoice items (barang-barang yang dibeli)
-    public function items()
+    // relasi ke product (barang apa yang dimasukin)
+    public function product()
     {
-        return $this->hasMany(InvoiceItem::class);
+        return $this->belongsTo(Product::class);
     }
 }
